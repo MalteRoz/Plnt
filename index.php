@@ -8,6 +8,6 @@ $uri = rtrim($uri, '/') ?: '/';
 
 $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
-echo $uri;
-echo '<br>';
+// echo $uri;
+// echo '<br>';
 $router->route($uri, $method);

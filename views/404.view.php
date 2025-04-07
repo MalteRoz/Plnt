@@ -1,6 +1,3 @@
-<main>
-    <h1>404</h1>
-    <p>Oops no plants on this page...</p>
-    <p>Go Back Home</p>
-    <a href="http://localhost/plnt/">-></a>
-</main>
+<?php
+$content = $_SERVER['DOCUMENT_ROOT'] . '/Plnt/views/components/404-content.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/Plnt/views/Template.php';
