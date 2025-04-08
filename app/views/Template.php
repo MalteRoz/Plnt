@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-$filnamn = $_SERVER['DOCUMENT_ROOT'] . '/Plnt/views/components/head.php';
+$filnamn = view('components/head.php');
 include $filnamn;
 ?>
 
 <body>
     <div class="flex h-screen flex-col items-center">
         <?php
-        include $_SERVER['DOCUMENT_ROOT'] . '/Plnt/views/components/searchbarMobile.php';
+        include view('components/searchbarMobile.php');
         ?>
 
         <main class="flex-1 pt-[76px] pb-[77px]">
             <div class="p-4 h-full">
                 <?php
-                // Här inkluderas huvudinnehållet (view-specifikt)
-                if (isset($content)) {
+                if (isset($content) && file_exists($content)) {
                     include $content;
+                } else {
+                    echo "<p>Inget innehåll kunde laddas – kontrollera sökvägen: $content</p>";
                 }
                 ?>
             </div>
         </main>
 
-        <!-- <div class="p-4"> -->
         <?php
-        include $_SERVER['DOCUMENT_ROOT'] . '/Plnt/views/components/bottomnavbar.php';
+        include view('components/bottomnavbar.php');
         ?>
-        <!-- </div> -->
     </div>
 </body>
 

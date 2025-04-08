@@ -1,5 +1,6 @@
 <?php
 require './routes.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/utils/IncludeFunction.php';
 
 $base_uri = dirname($_SERVER['SCRIPT_NAME']);
 $uri = str_replace($base_uri, '', $_SERVER['REQUEST_URI']);

@@ -1,7 +1,7 @@
 <?php
 
-require_once './Utils/Router.php';
+require_once './app/Utils/Router.php';
 
 $router = new Router();
 
-$router->get('/', 'Controllers/HomeController.php', 'show');
+$router->get('/', 'app/Controllers/HomeController.php', 'show');

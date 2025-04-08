@@ -61,7 +61,7 @@ class Router
 
         http_response_code($code);
 
-        require './views/404.view.php';
+        require './app/views/404.view.php';
 
         die();
     }

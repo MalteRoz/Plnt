@@ -1,6 +1,4 @@
 <?php
-// $filnamn = $_SERVER['DOCUMENT_ROOT'] . '/Plnt/views/components/head.php';
-// include $filnamn;
 
 $navItems = [
     [
