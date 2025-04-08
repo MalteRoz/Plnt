@@ -12,7 +12,7 @@ include $filnamn;
         ?>
 
         <main class="flex-1 pt-[76px] pb-[77px]">
-            <div class="p-4">
+            <div class="p-4 h-full">
                 <?php
                 // Här inkluderas huvudinnehållet (view-specifikt)
                 if (isset($content)) {
@@ -22,9 +22,11 @@ include $filnamn;
             </div>
         </main>
 
+        <!-- <div class="p-4"> -->
         <?php
         include $_SERVER['DOCUMENT_ROOT'] . '/Plnt/views/components/bottomnavbar.php';
         ?>
+        <!-- </div> -->
     </div>
 </body>
 

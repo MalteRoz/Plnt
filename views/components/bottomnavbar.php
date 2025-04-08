@@ -35,14 +35,16 @@ $navItems = [
 ];
 ?>
 
-<nav class="fixed bottom-0 z-100 w-full flex justify-between gap-2 py-[1rem] px-0 border-[0.5px] rounded-full bg-white">
-    <?php
-    foreach ($navItems as $key => $value) : ?>
-        <div class="flex flex-col items-center justify-center w-[25%]">
-            <a href="<?= $value['route']; ?>" class="flex flex-col items-center ">
-                <?= $value['icon']; ?>
-                <span><?= $value['name']; ?></span>
-            </a>
-        </div>
-    <?php endforeach; ?>
-</nav>
+<div class="flex justify-center w-full">
+    <nav class="fixed bottom-2 z-100 w-[90%] flex justify-between gap-2 py-[1rem] px-0 border-[0.5px] rounded-full bg-white">
+        <?php
+        foreach ($navItems as $key => $value) : ?>
+            <div class="flex flex-col items-center justify-center w-[25%]">
+                <a href="<?= $value['route']; ?>" class="flex flex-col items-center ">
+                    <?= $value['icon']; ?>
+                    <span><?= $value['name']; ?></span>
+                </a>
+            </div>
+        <?php endforeach; ?>
+    </nav>
+</div>
