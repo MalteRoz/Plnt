@@ -9,8 +9,6 @@
       "Courier New", monospace;
     --color-white: #fff;
     --spacing: 0.25rem;
-    --text-xl: 1.25rem;
-    --text-xl--line-height: calc(1.75 / 1.25);
     --text-2xl: 1.5rem;
     --text-2xl--line-height: calc(2 / 1.5);
     --text-3xl: 1.875rem;
@@ -19,19 +17,10 @@
     --text-4xl--line-height: calc(2.5 / 2.25);
     --text-5xl: 3rem;
     --text-5xl--line-height: 1;
-    --text-6xl: 3.75rem;
-    --text-6xl--line-height: 1;
-    --text-7xl: 4.5rem;
-    --text-7xl--line-height: 1;
     --text-8xl: 6rem;
     --text-8xl--line-height: 1;
-    --font-weight-thin: 100;
     --font-weight-light: 300;
-    --font-weight-medium: 500;
     --font-weight-semibold: 600;
-    --font-weight-bold: 700;
-    --radius-2xl: 1rem;
-    --radius-3xl: 1.5rem;
     --radius-4xl: 2rem;
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
@@ -198,14 +187,14 @@
   .mt-8 {
     margin-top: calc(var(--spacing) * 8);
   }
-  .mt-\[76px\] {
-    margin-top: 76px;
-  }
   .flex {
     display: flex;
   }
   .table {
     display: table;
+  }
+  .h-32 {
+    height: calc(var(--spacing) * 32);
   }
   .h-full {
     height: 100%;
@@ -227,6 +216,9 @@
   }
   .w-full {
     width: 100%;
+  }
+  .flex-1 {
+    flex: 1;
   }
   .border-collapse {
     border-collapse: collapse;
@@ -300,6 +292,12 @@
   }
   .py-\[1rem\] {
     padding-block: 1rem;
+  }
+  .pt-\[76px\] {
+    padding-top: 76px;
+  }
+  .pb-\[77px\] {
+    padding-bottom: 77px;
   }
   .text-center {
     text-align: center;

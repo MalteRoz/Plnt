@@ -6,22 +6,26 @@ include $filnamn;
 ?>
 
 <body>
-    <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/Plnt/views/components/searchbarMobile.php';
-    ?>
-
-    <main class="flex h-screen flex-col items-center justify-center p-4">
+    <div class="flex h-screen flex-col items-center">
         <?php
-        // Här inkluderas huvudinnehållet (view-specifikt)
-        if (isset($content)) {
-            include $content;
-        }
+        include $_SERVER['DOCUMENT_ROOT'] . '/Plnt/views/components/searchbarMobile.php';
         ?>
-    </main>
 
-    <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/Plnt/views/components/bottomnavbar.php';
-    ?>
+        <main class="flex-1 pt-[76px] pb-[77px]">
+            <div class="p-4">
+                <?php
+                // Här inkluderas huvudinnehållet (view-specifikt)
+                if (isset($content)) {
+                    include $content;
+                }
+                ?>
+            </div>
+        </main>
+
+        <?php
+        include $_SERVER['DOCUMENT_ROOT'] . '/Plnt/views/components/bottomnavbar.php';
+        ?>
+    </div>
 </body>
 
 </html>

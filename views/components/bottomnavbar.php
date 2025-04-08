@@ -35,7 +35,7 @@ $navItems = [
 ];
 ?>
 
-<nav class="fixed bottom-0 z-100 w-full flex justify-between gap-2 py-[1rem] px-0 border-[0.5px] rounded-full mt-8 bg-white">
+<nav class="fixed bottom-0 z-100 w-full flex justify-between gap-2 py-[1rem] px-0 border-[0.5px] rounded-full bg-white">
     <?php
     foreach ($navItems as $key => $value) : ?>
         <div class="flex flex-col items-center justify-center w-[25%]">
