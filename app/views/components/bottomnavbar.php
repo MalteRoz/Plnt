@@ -3,45 +3,58 @@
 $navItems = [
     [
         'name' => 'Home',
-        'route' => '/plnt/home',
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
-                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
-                     </svg>'
+        'route' => '/plnt/',
+        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 48 48">
+                    <path d="M 23.951172 4 A 1.50015 1.50015 0 0 0 23.072266 4.3222656 L 8.859375 15.519531 C 7.0554772 16.941163 6 19.113506 6 21.410156 L 6 40.5 C 6 41.863594 7.1364058 43 8.5 43 L 18.5 43 C 19.863594 43 21 41.863594 21 40.5 L 21 30.5 C 21 30.204955 21.204955 30 21.5 30 L 26.5 30 C 26.795045 30 27 30.204955 27 30.5 L 27 40.5 C 27 41.863594 28.136406 43 29.5 43 L 39.5 43 C 40.863594 43 42 41.863594 42 40.5 L 42 21.410156 C 42 19.113506 40.944523 16.941163 39.140625 15.519531 L 24.927734 4.3222656 A 1.50015 1.50015 0 0 0 23.951172 4 z M 24 7.4101562 L 37.285156 17.876953 C 38.369258 18.731322 39 20.030807 39 21.410156 L 39 40 L 30 40 L 30 30.5 C 30 28.585045 28.414955 27 26.5 27 L 21.5 27 C 19.585045 27 18 28.585045 18 30.5 L 18 40 L 9 40 L 9 21.410156 C 9 20.030807 9.6307412 18.731322 10.714844 17.876953 L 24 7.4101562 z"></path>
+                    </svg>'
     ],
     [
         'name' => 'Saved',
         'route' => '/plnt/saved',
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                    </svg>'
+        'icon' => '<img width="18" height="18" src="https://img.icons8.com/fluency-systems-regular/48/like--v1.png" alt="like--v1"/>'
     ],
     [
         'name' => 'Account',
         'route' => '/plnt/account',
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                    </svg>'
+        'icon' => '<img width="18" height="18" src="https://img.icons8.com/pastel-glyph/64/gender-neutral-user.png" alt="gender-neutral-user"/>'
     ],
     [
         'name' => 'Bag',
         'route' => '/plnt/bag',
-        'icon' => '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
-                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
-                    </svg>'
+        'icon' => '<img width="18" height="18" src="https://img.icons8.com/fluency-systems-regular/48/shopping-bag--v1.png" alt="shopping-bag--v1"/>'
     ]
 
 ];
+
+$currentPagePath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 ?>
 
-<div class="flex justify-center w-full">
+<!-- <div class="flex justify-center w-full">
     <nav class="fixed bottom-2 z-100 w-[92.5%] flex justify-between gap-2 py-[1rem] px-0 border-1 border-zinc-300 rounded-full bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)]">
         <?php
+        $currentPage = $_SERVER['REQUEST_URI'];
+        echo $currentPage;
         foreach ($navItems as $key => $value) : ?>
             <div class="flex flex-col items-center justify-center w-[25%]">
-                <a href="<?= $value['route']; ?>" class="flex flex-col items-center ">
+                <a href="<?= $value['route']; ?>" class="<?= str_contains($currentPage, $value['route']) ? 'flex flex-col items-center rounded-full border-amber-600' : 'flex flex-col items-center' ?>">
                     <?= $value['icon']; ?>
-                    <!-- <span><?= $value['name']; ?></span> -->
+                    <span><?= $value['name']; ?></span>
                 </a>
+            </div>
+        <?php endforeach; ?>
+    </nav>
+</div> -->
+
+
+<div class="flex justify-center w-full">
+    <nav class="fixed bottom-2 z-50 w-[92.5%] flex justify-between gap-2 py-[1rem] px-0 border border-zinc-300 rounded-full bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)]">
+        <?php foreach ($navItems as $key => $value) : ?>
+            <div class="flex flex-col items-center justify-center w-[25%]">
+                <div class="<?= $currentPagePath === $value['route'] ? 'flex flex-col items-center rounded-full border-3 border-[#C4DDA9] p-2' : 'flex flex-col items-center' ?>">
+                    <a href="<?= $value['route']; ?>" class="flex flex-col items-center">
+                        <?= $value['icon']; ?>
+                    </a>
+                </div>
             </div>
         <?php endforeach; ?>
     </nav>
