@@ -11,7 +11,7 @@ include $filnamn;
         include view('components/searchbarMobile.php');
         ?>
 
-        <main class="flex-1 pt-[76px] pb-[77px]">
+        <main class="flex-1 pt-[76px] pb-[77px] w-full">
             <div class="p-4 h-full">
                 <?php
                 if (isset($content) && file_exists($content)) {

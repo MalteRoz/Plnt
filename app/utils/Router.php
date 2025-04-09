@@ -37,6 +37,9 @@ class Router
     public function route($uri, $method)
     {
 
+        // print "<pre>";
+        // print_r($this->routes);
+        // print "</pre>";
         $uriWithoutQuery = strtok($uri, '?');
 
         foreach ($this->routes as $route) {
@@ -61,7 +64,7 @@ class Router
 
         http_response_code($code);
 
-        require './app/views/404.view.php';
+        require view('404.view.php');
 
         die();
     }

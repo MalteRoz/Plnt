@@ -34,13 +34,13 @@ $navItems = [
 ?>
 
 <div class="flex justify-center w-full">
-    <nav class="fixed bottom-2 z-100 w-[90%] flex justify-between gap-2 py-[1rem] px-0 border-[0.5px] rounded-full bg-white">
+    <nav class="fixed bottom-2 z-100 w-[92.5%] flex justify-between gap-2 py-[1rem] px-0 border-1 border-zinc-300 rounded-full bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)]">
         <?php
         foreach ($navItems as $key => $value) : ?>
             <div class="flex flex-col items-center justify-center w-[25%]">
                 <a href="<?= $value['route']; ?>" class="flex flex-col items-center ">
                     <?= $value['icon']; ?>
-                    <span><?= $value['name']; ?></span>
+                    <!-- <span><?= $value['name']; ?></span> -->
                 </a>
             </div>
         <?php endforeach; ?>
