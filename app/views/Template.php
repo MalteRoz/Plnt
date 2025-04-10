@@ -6,12 +6,12 @@ include $filnamn;
 ?>
 
 <body>
-    <div class="flex h-screen flex-col items-center">
+    <div class="flex flex-col items-center">
         <?php
         include view('components/searchbarMobile.php');
         ?>
 
-        <main class="flex-1 pt-[76px] pb-[77px] w-full">
+        <main class="pt-[76px] pb-[77px] w-full h-screen">
             <div class="p-4 h-full">
                 <?php
                 if (isset($content) && file_exists($content)) {
