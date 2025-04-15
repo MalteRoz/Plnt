@@ -3,8 +3,6 @@ $content = 'Log In';
 include view('components/goback.php');
 ?>
 
-
-
 <div class="flex flex-col w-full gap-4">
     <form action="" class="flex flex-col w-full gap-4">
         <label for="username">Username</label>

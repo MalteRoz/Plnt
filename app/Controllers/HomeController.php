@@ -5,4 +5,6 @@ class HomeController
     {
         require view('Home.view.php');
     }
+
+    public function getProducts() {}
 }

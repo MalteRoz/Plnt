@@ -29,23 +29,6 @@ $navItems = [
 $currentPagePath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 ?>
 
-<!-- <div class="flex justify-center w-full">
-    <nav class="fixed bottom-2 z-100 w-[92.5%] flex justify-between gap-2 py-[1rem] px-0 border-1 border-zinc-300 rounded-full bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)]">
-        <?php
-        $currentPage = $_SERVER['REQUEST_URI'];
-        echo $currentPage;
-        foreach ($navItems as $key => $value) : ?>
-            <div class="flex flex-col items-center justify-center w-[25%]">
-                <a href="<?= $value['route']; ?>" class="<?= str_contains($currentPage, $value['route']) ? 'flex flex-col items-center rounded-full border-amber-600' : 'flex flex-col items-center' ?>">
-                    <?= $value['icon']; ?>
-                    <span><?= $value['name']; ?></span>
-                </a>
-            </div>
-        <?php endforeach; ?>
-    </nav>
-</div> -->
-
-
 <div class="flex justify-center w-full">
     <nav class="fixed bottom-2 z-50 w-[92.5%] flex justify-between gap-2 py-[1rem] px-0 border border-zinc-300 rounded-full bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)]">
         <?php foreach ($navItems as $key => $value) : ?>

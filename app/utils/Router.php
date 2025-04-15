@@ -36,7 +36,6 @@ class Router
 
     public function route($uri, $method)
     {
-
         $uriWithoutQuery = strtok($uri, '?');
 
         foreach ($this->routes as $route) {
@@ -47,6 +46,7 @@ class Router
 
                 if (class_exists($controllerName)) {
                     $controllerInstance = new $controllerName();
+
 
                     return $controllerInstance->{$route['function']}($_GET);
                 }
