@@ -7,7 +7,7 @@ class ProductController extends ProductsModel
     private $products;
     private $response = [];
 
-    public function show($params)
+    public function show()
     {
         require view('Products.view.php');
     }
@@ -52,5 +52,28 @@ class ProductController extends ProductsModel
         $this->response['status'] = 'success';
         $this->response['data'] = $this->products;
         return $this->response;
+    }
+
+    public function handleProductSearch($params)
+    {
+        if (isset($params['query'])) {
+            $search = htmlspecialchars($params['query']);
+            echo "Detta är söktermen: " . $search;
+            $this->products = $this->getProductsBySearchFromDb($params);
+            if (empty($this->products)) {
+                $this->response['status'] = 'error';
+                $this->response['message'] = 'No products found';
+                echo json_encode($this->response);
+                return;
+            }
+            $this->response['status'] = 'success';
+            $this->response['data'] = $this->products;
+            echo "<pre>";
+            print_r($this->products);
+            echo "</pre>";
+            // return $this->response;
+        } else {
+            echo "Ingen sökterm hittad";
+        }
     }
 }

@@ -8,7 +8,7 @@ $filters = [
 ];
 ?>
 
-<div>
+<div class="flex flex-col gap-4">
     <p class="font-semibold text-xl">Filters</p>
     <div class="flex flex-wrap gap-2">
         <?php foreach ($filters as $filter) : ?>

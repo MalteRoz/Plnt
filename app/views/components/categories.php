@@ -9,7 +9,7 @@ $categories = [
 ];
 ?>
 
-<div>
+<div class="flex flex-col gap-4">
     <p class="font-semibold text-xl">Categories</p>
     <div class="flex flex-wrap gap-2">
         <?php foreach ($categories as $category) : ?>
