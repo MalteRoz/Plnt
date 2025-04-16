@@ -9,7 +9,37 @@ class ProductController extends ProductsModel
 
     public function show($params)
     {
-        require view('Products.view.php');
+        $controller = new ProductController();
+
+        if (isset($params['category'])) {
+            $selectedCategory = $params['category'];
+
+            if ($selectedCategory === 'All') {
+                $response = $controller->getProducts();
+                if (isset($response['data'])) {
+                    $this->products = $response['data'];
+                }
+            } else if ($selectedCategory === 'Popular') {
+                $response = $controller->getPopularProducts();
+                if (isset($response['data'])) {
+                    $this->products = $response['data'];
+                }
+            } else {
+                $response = $controller->getProductsByCategory($selectedCategory);
+                if (isset($response['data'])) {
+                    $this->products = $response['data'];
+                } else {
+                    echo "Fel vid hämtning av produkter för kategorin: " . htmlspecialchars($selectedCategory);
+                }
+            }
+        } else {
+            $response = $controller->getProducts();
+            if (isset($response['data'])) {
+                $this->products = $response['data'];
+            }
+        }
+
+        dataView('Products.view.php', $this->products);
     }
 
     public function getProducts()

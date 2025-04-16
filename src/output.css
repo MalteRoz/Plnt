@@ -249,6 +249,12 @@
   .h-32 {
     height: calc(var(--spacing) * 32);
   }
+  .h-\[25\%\] {
+    height: 25%;
+  }
+  .h-\[60\%\] {
+    height: 60%;
+  }
   .h-\[calc\(100\%-153px\)\] {
     height: calc(100% - 153px);
   }
@@ -381,6 +387,9 @@
   .rounded-\[2rem\] {
     border-radius: 2rem;
   }
+  .rounded-\[50\%\] {
+    border-radius: 50%;
+  }
   .rounded-full {
     border-radius: calc(infinity * 1px);
   }
@@ -411,9 +420,17 @@
     border-style: var(--tw-border-style);
     border-width: 5px;
   }
+  .border-\[0\.5px\] {
+    border-style: var(--tw-border-style);
+    border-width: 0.5px;
+  }
   .border-\[1\.5px\] {
     border-style: var(--tw-border-style);
     border-width: 1.5px;
+  }
+  .border-\[1px\] {
+    border-style: var(--tw-border-style);
+    border-width: 1px;
   }
   .border-\[2px\] {
     border-style: var(--tw-border-style);
