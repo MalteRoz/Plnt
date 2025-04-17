@@ -7,6 +7,10 @@ $categories = [
     'Outdoor',
     'Low maintance',
 ];
+
+if (isset($_GET['category'])) {
+    $currentPagePath = $_GET['category'];
+}
 ?>
 
 <div class="flex flex-col gap-4">

@@ -243,6 +243,12 @@
   .table {
     display: table;
   }
+  .h-3 {
+    height: calc(var(--spacing) * 3);
+  }
+  .h-3\.5 {
+    height: calc(var(--spacing) * 3.5);
+  }
   .h-10 {
     height: calc(var(--spacing) * 10);
   }
@@ -276,6 +282,9 @@
   .h-svh {
     height: 100svh;
   }
+  .w-4 {
+    width: calc(var(--spacing) * 4);
+  }
   .w-10 {
     width: calc(var(--spacing) * 10);
   }
@@ -290,6 +299,18 @@
   }
   .w-\[30\%\] {
     width: 30%;
+  }
+  .w-\[40\%\] {
+    width: 40%;
+  }
+  .w-\[40\%px\] {
+    width: 40%px;
+  }
+  .w-\[45\%\] {
+    width: 45%;
+  }
+  .w-\[47\.5\%\] {
+    width: 47.5%;
   }
   .w-\[50\%\] {
     width: 50%;

@@ -7,39 +7,27 @@ class ProductController extends ProductsModel
     private $products;
     private $response = [];
 
-    public function show()
+    public function show($params)
     {
-        $controller = new ProductController();
 
         if (isset($params['category'])) {
             $selectedCategory = $params['category'];
-
             if ($selectedCategory === 'All') {
-                $response = $controller->getProducts();
-                if (isset($response['data'])) {
-                    $this->products = $response['data'];
-                }
+                $this->getProducts();
             } else if ($selectedCategory === 'Popular') {
-                $response = $controller->getPopularProducts();
-                if (isset($response['data'])) {
-                    $this->products = $response['data'];
-                }
+                $this->getPopularProducts();
             } else {
-                $response = $controller->getProductsByCategory($selectedCategory);
-                if (isset($response['data'])) {
-                    $this->products = $response['data'];
-                } else {
+                $response = $this->getProductsByCategory($selectedCategory);
+                if (isset($response['status']) && $response['status'] === 'error') {
                     echo "Fel vid hämtning av produkter för kategorin: " . htmlspecialchars($selectedCategory);
+                    return;
                 }
             }
         } else {
-            $response = $controller->getProducts();
-            if (isset($response['data'])) {
-                $this->products = $response['data'];
-            }
+            $this->getProducts();
         }
 
-        dataView('Products.view.php', $this->products);
+        dataView('Products.view.php', $this->response);
     }
 
     public function getProducts()
@@ -87,23 +75,18 @@ class ProductController extends ProductsModel
     public function handleProductSearch($params)
     {
         if (isset($params['query'])) {
-            $search = htmlspecialchars($params['query']);
-            echo "Detta är söktermen: " . $search;
             $this->products = $this->getProductsBySearchFromDb($params);
             if (empty($this->products)) {
                 $this->response['status'] = 'error';
-                $this->response['message'] = 'No products found';
-                echo json_encode($this->response);
+                $this->response['message'] = 'No products matching search';
+                dataView('Products.view.php', $this->response);
                 return;
             }
             $this->response['status'] = 'success';
             $this->response['data'] = $this->products;
-            echo "<pre>";
-            print_r($this->products);
-            echo "</pre>";
-            // return $this->response;
+            dataView('Products.view.php', $this->response);
         } else {
-            echo "Ingen sökterm hittad";
+            dataView('Products.view.php', []);
         }
     }
 }

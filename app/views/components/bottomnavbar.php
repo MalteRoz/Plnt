@@ -9,9 +9,9 @@ $navItems = [
                     </svg>'
     ],
     [
-        'name' => 'Saved',
-        'route' => '/plnt/saved',
-        'icon' => '<img width="18" height="18" src="https://img.icons8.com/fluency-systems-regular/48/like--v1.png" alt="like--v1"/>'
+        'name' => 'Products',
+        'route' => '/plnt/products/category',
+        'icon' => '<img width="18" height="18" src="https://img.icons8.com/puffy/32/potted-plant.png" alt="potted-plant"/>'
     ],
     [
         'name' => 'Account',

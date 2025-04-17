@@ -36,13 +36,13 @@ $currentPagePath = 'All';
         include view('components/filters.php');
         ?>
 
-        <div class="overflow-x-auto flex flex-nowrap gap-4 mt-4">
+        <section class="flex justify-between flex-wrap gap-4">
             <?php if (!empty($products)) : ?>
                 <?php foreach ($products as $product) : ?>
 
-                    <div class="flex flex-col gap-4 w-[250px] shrink-0">
+                    <div class="flex flex-col gap-4 w-[47.5%] shrink-0">
                         <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="" class="rounded-2xl">
-                        <div class="flex justify-between items-center">
+                        <div class="flex flex-col">
                             <p class="font-semibold text-xl"><?php echo htmlspecialchars($product['name']); ?> </p>
                             <p class="font-semibold text-xl">$<?php echo htmlspecialchars($product['price']); ?> </p>
                         </div>
@@ -57,6 +57,6 @@ $currentPagePath = 'All';
             <?php else : ?>
                 <p>No products available.</p>
             <?php endif; ?>
-        </div>
+        </section>
     </div>
 </div>
