@@ -29,7 +29,7 @@ class ProductController extends ProductsModel
                 }
             }
         } else {
-            $this->getProducts($params['filter']);
+            $this->getProducts($filter);
         }
 
         dataView('Products.view.php', $this->response);
