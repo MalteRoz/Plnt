@@ -46,8 +46,6 @@ class Router
 
                 if (class_exists($controllerName)) {
                     $controllerInstance = new $controllerName();
-
-
                     return $controllerInstance->{$route['function']}($_GET);
                 }
             }

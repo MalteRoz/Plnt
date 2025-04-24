@@ -5,7 +5,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/Controllers/api/ProductContr
 
 
 $controller = new ProductController();
-$response = $controller->getProducts();
+$response = $controller->getProducts('');
 $products = $response['data'];
 
 $currentPagePath = 'All';

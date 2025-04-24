@@ -9,30 +9,46 @@ class ProductController extends ProductsModel
 
     public function show($params)
     {
+        $filter = '';
+        if (isset($params['filter'])) {
+            $filter = $params['filter'];
+        }
+
 
         if (isset($params['category'])) {
             $selectedCategory = $params['category'];
             if ($selectedCategory === 'All') {
-                $this->getProducts();
+                $this->getProducts($filter);
             } else if ($selectedCategory === 'Popular') {
-                $this->getPopularProducts();
+                $this->getPopularProducts($filter);
             } else {
-                $response = $this->getProductsByCategory($selectedCategory);
+                $this->getProductsByCategory($selectedCategory, $filter);
                 if (isset($response['status']) && $response['status'] === 'error') {
                     echo "Fel vid hämtning av produkter för kategorin: " . htmlspecialchars($selectedCategory);
                     return;
                 }
             }
         } else {
-            $this->getProducts();
+            $this->getProducts($params['filter']);
         }
 
         dataView('Products.view.php', $this->response);
     }
 
-    public function getProducts()
+    public function showSingle($params)
     {
-        $this->products = $this->getProductsFromDb();
+        if (isset($params['id'])) {
+            $productId = $params['id'];
+            $this->getSingleProduct($productId);
+            dataView('ProductDetails.view.php', $this->response);
+        } else {
+            require view('404.view.php');
+        }
+    }
+
+    public function getSingleProduct($productId)
+    {
+        $this->products = $this->getSingleProductFromDb($productId);
         if (empty($this->products)) {
             $this->response['status'] = 'error';
             $this->response['message'] = 'No products found';
@@ -44,9 +60,9 @@ class ProductController extends ProductsModel
         return $this->response;
     }
 
-    public function getProductsByCategory($category)
+    public function getProducts($filter)
     {
-        $this->products = $this->getProductsByCategoryFromDb($category);
+        $this->products = $this->getProductsFromDb($filter);
         if (empty($this->products)) {
             $this->response['status'] = 'error';
             $this->response['message'] = 'No products found';
@@ -58,9 +74,28 @@ class ProductController extends ProductsModel
         return $this->response;
     }
 
-    public function getPopularProducts()
+    public function getProductsByCategory($category, $filter)
     {
-        $this->products = $this->getPopularProductsFromDb();
+        $this->products = $this->getProductsByCategoryFromDb($category, $filter);
+        if (empty($this->products)) {
+            $this->response['status'] = 'error';
+            $this->response['message'] = 'No products found';
+            echo json_encode($this->response);
+            return;
+        }
+        $this->response['status'] = 'success';
+        $this->response['data'] = $this->products;
+        return $this->response;
+    }
+
+    public function getPopularProducts($filter)
+    {
+        // $filter = '';
+        // if (isset($params['filter'])) {
+        //     $filter = $params['filter'];
+        // }
+
+        $this->products = $this->getPopularProductsFromDb($filter);
         if (empty($this->products)) {
             $this->response['status'] = 'error';
             $this->response['message'] = 'No products found';
@@ -74,8 +109,14 @@ class ProductController extends ProductsModel
 
     public function handleProductSearch($params)
     {
+        $filter = '';
+        if (isset($params['filter'])) {
+            $filter = $params['filter'];
+        }
+
         if (isset($params['query'])) {
-            $this->products = $this->getProductsBySearchFromDb($params);
+            $search = $params['query'];
+            $this->products = $this->getProductsBySearchFromDb($search, $filter);
             if (empty($this->products)) {
                 $this->response['status'] = 'error';
                 $this->response['message'] = 'No products matching search';

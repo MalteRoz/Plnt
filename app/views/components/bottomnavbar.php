@@ -30,7 +30,7 @@ $currentPagePath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 ?>
 
 <div class="flex justify-center w-full">
-    <nav class="fixed bottom-2 z-50 w-[92.5%] flex justify-between gap-2 py-[1rem] px-0 border border-zinc-300 rounded-full bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)]">
+    <nav class="fixed bottom-2 z-50 w-[92.5%] flex justify-between gap-2 py-[1rem] px-0 border border-zinc-300 rounded-full bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] min-h-[74px]">
         <?php foreach ($navItems as $key => $value) : ?>
             <div class="flex flex-col items-center justify-center w-[25%]">
                 <div class="<?= $currentPagePath === $value['route'] ? 'flex flex-col items-center rounded-full border-3 border-[#C4DDA9] p-2' : 'flex flex-col items-center' ?>">
