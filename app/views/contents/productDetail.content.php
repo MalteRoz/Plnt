@@ -13,13 +13,13 @@ include view('components/goback.php');
             <div class="flex flex-col items-center gap-8 w-full">
                 <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="" class="w-[70%] rounded-2xl">
 
-                <div class="flex flex-col items-center gap-4 w-full">
+                <div class="flex flex-col items-center gap-2 w-full">
                     <div class="flex justify-between w-full">
                         <div>
                             <p class="text-2xl font-semibold"><?php echo $product['name']; ?></p>
                         </div>
 
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-4">
                             <!-- <div class="p-2 rounded-full border-1 border-[#224820]"> -->
                             <img class="w-[1rem]" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD60lEQVR4nO1YS4gcZRD+83B9LT4gkESyXY/eLNjqxcGAemjR3a6aTVRUBi+KigcVYoIGk4jIKjnoTQmCIIo3PYmRICI+0JOIghjRJIJRc/EkBhOTaEKU6p2Z/afX3e6ex84G+oOGYWbq+6uq6/k7V6FChQoVlgLB5uBKTuAhUtjHCodY8QQrnmLFI6T4Fivc5RpuVS5Rw61igbtJ8G2TbXKcME4SfJcFHoQ74Yq+Kb6hseFiEniaFY6x4r85z8FQ4MaFuMIkuMn+k8sj+Acr7IYYLupJ+bHJsatI4KsCircfUjhjBjvnVrSJZtxKUnjGfivDxQpfmg7dK69wtNMz8C0LbhvXIFo7tfZS85B9pgR2sMAvHYYI7G1xseIrGeV+JoUnYBquNg7jCmXsGhbczgIHMg45WtqIZti0PU8Cp1nwEfNkjszejBHPkcDzGYVeXjQ0ZtxKFng0PdN7E6XCaTbm55RHxbioLAs+tWB4CTxZlCcUuKXDCMGdxauNn7Dm+ZJgwdfnJya8VppH4TE/sQtVJyuVfswvFjYLYf2W9ZeQwncezwELsbI8brbk+jnxQK5MWovnrN5W+tAWT50mmv3iIE/yxm552BK7nT/4TgEBONwSsArjhozQqtNcMh/KFSCF4y2BKI5G3ZARxdGoV8GO5wo0R4TmGxi/bEm0XAQ8yZeXNCCN21QAFRM3ZIQJqJeTP+QKWLkrlTQDBqXDY1ufV3MFWIPbvLJ1jhLa5IaEMAlqpkNLH2tuReRWpDNPu3viJ930gp4xYwMgfuqFzzeFZbke3NoxAiSwY6DKFhhJSucjKb7pZf8/SxlKoQTXk8DfnvffKE1iI65lvT8CwzSscwMGTMM6O8sL4e9tNOmKjOt8HQue9KrA14NsblEcjdoZnudP8hRf2xMpJcE9LHjW88j7cexWuz4jjt1q4/aUP2u7c1/IbaTOrHr7x3X8wr6QO+dqtdoF1nP8M0LFx10/QQp7MpvVvqgRjfTKGzWiEb9ZNbn3uEFgvhH4QS83B1EjGmGF9zq3NnzJDRK252Y2rQ+7WVYsBFlh/5Iq3wILPpvJiY/KlLp0YxP8eCjKt8CKuzJv4rMi47f9hwU+75TFF9ww0Fy628OW1fCJLRNrFr0wEPwic1PxohsmKKGtvhG2hP9fx7bvOhZ9xXN9L5XdgpTuy1wbHtm4OeDW7zzJASn86Dcp0uBht5wQ1vFeG/q8xP7VbiaCqYBI8Cevxp9BwfvdcgQK3pG5TfstfebezClSut0tZ4SzV4J/zr+Zw78ooSl3PoCUbmDF371wOsb14GZ3PiFMglqauAKHbUEZtj4VKlSo4AaC/wAM4kJqLiow/AAAAABJRU5ErkJggg==" alt="like--v1">
                             <!-- </div> -->
@@ -80,7 +80,7 @@ include view('components/goback.php');
 
                 </div>
 
-                <div class="flex flex-col gap-2 w-full">
+                <div class="flex flex-col gap-4 w-full">
 
                     <div class="flex justify-between w-full">
                         <div>

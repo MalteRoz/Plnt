@@ -9,27 +9,27 @@ class ProductController extends ProductsModel
 
     public function show($params)
     {
-        $filter = '';
-        if (isset($params['filter'])) {
-            $filter = $params['filter'];
-        }
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $limit = 6;
+        $offset = ($page - 1) * $limit;
 
+        $filter = $params['filter'] ?? null;
 
         if (isset($params['category'])) {
             $selectedCategory = $params['category'];
             if ($selectedCategory === 'All') {
-                $this->getProducts($filter);
+                $this->getProducts($filter, $limit, $offset, $page);
             } else if ($selectedCategory === 'Popular') {
-                $this->getPopularProducts($filter);
+                $this->getPopularProducts($filter, $limit, $offset, $page);
             } else {
-                $this->getProductsByCategory($selectedCategory, $filter);
+                $this->getProductsByCategory($selectedCategory, $filter, $limit, $offset, $page);
                 if (isset($response['status']) && $response['status'] === 'error') {
                     echo "Fel vid hämtning av produkter för kategorin: " . htmlspecialchars($selectedCategory);
                     return;
                 }
             }
         } else {
-            $this->getProducts($filter);
+            $this->getProducts($filter, $limit, $offset, $page);
         }
 
         dataView('Products.view.php', $this->response);
@@ -46,6 +46,28 @@ class ProductController extends ProductsModel
         }
     }
 
+    public function getProducts($filter, $limit, $offset, $page)
+    {
+        $this->products = $this->getProductsFromDb($filter, $limit, $offset);
+        $totalProducts = $this->getTotalProductCount('all'); // <-- NYTT!
+
+        if (empty($this->products)) {
+            $this->response['status'] = 'error';
+            $this->response['message'] = 'No products found';
+            // echo json_encode($this->response);
+            return;
+        }
+        $this->response['status'] = 'success';
+        $this->response['data'] = $this->products;
+        $this->response['pagination'] = [
+            'currentPage' => $page,
+            'totalPages' => ceil($totalProducts / $limit),
+            'total' => $totalProducts,
+            'perPage' => $limit
+        ];
+        return $this->response;
+    }
+
     public function getSingleProduct($productId)
     {
         $this->products = $this->getSingleProductFromDb($productId);
@@ -60,55 +82,56 @@ class ProductController extends ProductsModel
         return $this->response;
     }
 
-    public function getProducts($filter)
+    public function getProductsByCategory($category, $filter, $limit, $offset, $page)
     {
-        $this->products = $this->getProductsFromDb($filter);
+        $this->products = $this->getProductsByCategoryFromDb($category, $filter, $limit, $offset);
+        $totalProducts = $this->getTotalProductCount('category', $category);
+
         if (empty($this->products)) {
             $this->response['status'] = 'error';
             $this->response['message'] = 'No products found';
-            echo json_encode($this->response);
+            // echo json_encode($this->response);
             return;
         }
         $this->response['status'] = 'success';
         $this->response['data'] = $this->products;
+        $this->response['pagination'] = [
+            'currentPage' => $page,
+            'totalPages' => ceil($totalProducts / $limit),
+            'total' => $totalProducts,
+            'perPage' => $limit
+        ];
         return $this->response;
     }
 
-    public function getProductsByCategory($category, $filter)
+    public function getPopularProducts($filter, $limit, $offset, $page)
     {
-        $this->products = $this->getProductsByCategoryFromDb($category, $filter);
+        $this->products = $this->getPopularProductsFromDb($filter, $limit, $offset);
+        $totalProducts = $this->getTotalProductCount('popular');
+
         if (empty($this->products)) {
             $this->response['status'] = 'error';
             $this->response['message'] = 'No products found';
-            echo json_encode($this->response);
+            // echo json_encode($this->response);
             return;
         }
         $this->response['status'] = 'success';
         $this->response['data'] = $this->products;
-        return $this->response;
-    }
-
-    public function getPopularProducts($filter)
-    {
-        // $filter = '';
-        // if (isset($params['filter'])) {
-        //     $filter = $params['filter'];
-        // }
-
-        $this->products = $this->getPopularProductsFromDb($filter);
-        if (empty($this->products)) {
-            $this->response['status'] = 'error';
-            $this->response['message'] = 'No products found';
-            echo json_encode($this->response);
-            return;
-        }
-        $this->response['status'] = 'success';
-        $this->response['data'] = $this->products;
+        $this->response['pagination'] = [
+            'currentPage' => $page,
+            'totalPages' => ceil($totalProducts / $limit),
+            'total' => $totalProducts,
+            'perPage' => $limit
+        ];
         return $this->response;
     }
 
     public function handleProductSearch($params)
     {
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $limit = 6;
+        $offset = ($page - 1) * $limit;
+
         $filter = '';
         if (isset($params['filter'])) {
             $filter = $params['filter'];
@@ -116,7 +139,8 @@ class ProductController extends ProductsModel
 
         if (isset($params['query'])) {
             $search = $params['query'];
-            $this->products = $this->getProductsBySearchFromDb($search, $filter);
+            $this->products = $this->getProductsBySearchFromDb($search, $filter, $limit, $offset);
+            $totalProducts = $this->getTotalProductCount('category', $search);
             if (empty($this->products)) {
                 $this->response['status'] = 'error';
                 $this->response['message'] = 'No products matching search';
@@ -125,6 +149,12 @@ class ProductController extends ProductsModel
             }
             $this->response['status'] = 'success';
             $this->response['data'] = $this->products;
+            $this->response['pagination'] = [
+                'currentPage' => $page,
+                'totalPages' => ceil($totalProducts / $limit),
+                'total' => $totalProducts,
+                'perPage' => $limit
+            ];
             dataView('Products.view.php', $this->response);
         } else {
             dataView('Products.view.php', []);

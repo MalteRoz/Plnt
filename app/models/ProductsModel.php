@@ -1,19 +1,21 @@
 <?php
 class ProductsModel extends Dbh
 {
-    protected function getProductsFromDb($filter)
+    protected function getProductsFromDb($filter, $limit, $offset)
     {
-
         try {
-            // $allowedFilters = ['name', 'price', 'created_at']; // Lista på tillåtna kolumner att sortera efter
             $sql = "SELECT * FROM products";
 
-            if (isset($filter) && $filter !== null) {
-                $filter = $this->checkFilter($filter);
-                $sql .= " ORDER BY " . $filter;
+            if (!empty($filter)) {
+                $filter = $this->checkFilterV2($filter);
+                $sql .= " ORDER BY $filter";
             }
 
+            $sql .= " LIMIT :limit OFFSET :offset";
+
             $stmt = $this->connection()->prepare($sql);
+            $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -36,7 +38,7 @@ class ProductsModel extends Dbh
         }
     }
 
-    protected function getProductsByCategoryFromDb($category, $filter)
+    protected function getProductsByCategoryFromDb($category, $filter, $limit, $offset)
     {
         try {
             $sql = "SELECT p.*
@@ -44,15 +46,17 @@ class ProductsModel extends Dbh
                     JOIN categories c ON p.category_id = c.id
                     WHERE c.name = :category";
 
-            if (isset($filter) && $filter !== null) {
-                $filter = $this->checkFilter($filter);
+            if (!empty($filter)) {
+                $filter = $this->checkFilterV2($filter);
                 $sql .= " ORDER BY " . $filter;
             }
 
+            $sql .= " LIMIT :limit OFFSET :offset";
+
             $stmt = $this->connection()->prepare($sql);
-
             $stmt->bindParam(':category', $category, PDO::PARAM_STR);
-
+            $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
             $stmt->execute();
 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -61,23 +65,25 @@ class ProductsModel extends Dbh
         }
     }
 
-    protected function getPopularProductsFromDb($filter)
+    protected function getPopularProductsFromDb($filter, $limit, $offset)
     {
         try {
-            $sql = "SELECT * FROM products ORDER BY likes DESC LIMIT 12";
+            $likesThreshold = 200;
 
-            if (isset($filter) && $filter !== null) {
-                if ($filter = $this->checkFilter($filter)) {
-                    $sql = "SELECT * FROM (
-                                SELECT * FROM products
-                                ORDER BY likes DESC
-                                LIMIT 12
-                            ) AS popular
-                            ORDER BY $filter";
-                }
+            $sql = "SELECT * FROM products WHERE likes >= :likesThreshold ORDER BY likes DESC LIMIT :limit OFFSET :offset";
+
+            if (!empty($filter)) {
+                $filter = $this->checkFilterV2($filter);
+                $innerSql = "SELECT * FROM products WHERE likes >= :likesThreshold ORDER BY likes DESC LIMIT 6";
+                $sql = "SELECT * FROM ($innerSql) AS popular ORDER BY $filter LIMIT :limit OFFSET :offset";
             }
 
             $stmt = $this->connection()->prepare($sql);
+
+            $stmt->bindValue(':likesThreshold', $likesThreshold, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+
             $stmt->execute();
 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -86,7 +92,7 @@ class ProductsModel extends Dbh
         }
     }
 
-    protected function getProductsBySearchFromDb($searchTerm, $filter)
+    protected function getProductsBySearchFromDb($searchTerm, $filter, $limit, $offset)
     {
         try {
             $sql = "SELECT p.*
@@ -94,15 +100,18 @@ class ProductsModel extends Dbh
                     JOIN categories c ON p.category_id = c.id
                     WHERE p.name LIKE :searchTerm OR c.name LIKE :searchTerm";
 
-            if (isset($filter) && $filter !== null) {
-                $filter = $this->checkFilter($filter);
+            if (!empty($filter)) {
+                $filter = $this->checkFilterV2($filter);
                 $sql .= " ORDER BY " . $filter;
             }
 
             $searchTerm = '%' . $searchTerm . '%';
 
-            $stmt = $this->connection()->prepare($sql);
+            $sql .= " LIMIT :limit OFFSET :offset";
 
+            $stmt = $this->connection()->prepare($sql);
+            $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
             $stmt->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
 
             $stmt->execute();
@@ -112,27 +121,44 @@ class ProductsModel extends Dbh
         }
     }
 
-    protected function checkFilter($filter)
+    protected function getTotalProductCount($type = 'all', $value = null)
     {
-        switch ($filter) {
-            case 'Lowest Price':
-                $filter = 'price ASC;';
+        $sql = "SELECT COUNT(*) FROM products p";
+
+        switch ($type) {
+            case 'category':
+                $sql .= " JOIN categories c ON p.category_id = c.id WHERE c.name = :value";
                 break;
-            case 'Highest Price':
-                $filter = 'price DESC;';
+            case 'search':
+                $sql .= " JOIN categories c ON p.category_id = c.id WHERE p.name LIKE :searchTerm OR c.name LIKE :searchTerm";
                 break;
-            case 'Name ASC':
-                $filter = 'name ASC;';
+            case 'popular':
+                $sql .= " WHERE p.likes >= :likesThreshold";
                 break;
-            case 'Name DESC':
-                $filter = 'name DESC;';
-                break;
+            case 'all':
             default:
-                $filter = 'Rand();';
                 break;
         }
 
-        return $filter;
+        $stmt = $this->connection()->prepare($sql);
+
+        if ($type === 'search') {
+            $searchTerm = '%' . $value . '%';
+            $stmt->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
+        }
+
+        if ($type === 'category') {
+            $stmt->bindValue(':value', $value, PDO::PARAM_STR);
+        }
+
+        if ($type === 'popular') {
+            $likesThreshold = 200;
+            $stmt->bindValue(':likesThreshold', $likesThreshold, PDO::PARAM_STR);
+        }
+
+
+        $stmt->execute();
+        return (int) $stmt->fetchColumn();
     }
 
     protected function checkFilterV2($filter)
@@ -144,6 +170,6 @@ class ProductsModel extends Dbh
             'Name DESC' => 'name DESC',
         ];
 
-        return $map[$filter] ?? 'Rand()';
+        return $map[$filter] ?? 'null';
     }
 }
