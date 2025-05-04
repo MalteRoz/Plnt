@@ -1,0 +1,14 @@
+{
+    "name": "malte/plnt",
+    "autoload": {
+        "psr-4": {
+            "Malte\\Plnt\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Malte Rozenbeek",
+            "email": "malte.rozenbeek@gmail.com"
+        }
+    ]
+}

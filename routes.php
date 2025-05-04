@@ -7,8 +7,10 @@ $router = new Router();
 // WEB ROUTES 
 
 $router->get('/', 'app/Controllers/HomeController.php', 'show');
-$router->get('/login', 'app/Controllers/LoginController.php', 'show');
-$router->get('/signin', 'app/Controllers/SigninController.php', 'show');
+$router->get('/login', 'app/Controllers/auth/AuthController.php', 'showLogin');
+$router->get('/signup', 'app/Controllers/auth/AuthController.php', 'showSignup');
 $router->get('/products/category', 'app/Controllers/api/ProductController.php', 'show');
 $router->get('/products/search', 'app/Controllers/api/ProductController.php', 'handleProductSearch');
 $router->get('/product', 'app/Controllers/api/ProductController.php', 'showSingle');
+
+$router->post('/signup', 'app/Controllers/auth/AuthController.php', 'test');

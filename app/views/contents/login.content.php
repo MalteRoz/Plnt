@@ -16,6 +16,6 @@ include view('components/goback.php');
 
     <div class="flex justify-center gap-2">
         <p>New to Plnt?</p>
-        <a href="/plnt/signin" class="font-bold">Create account here</a>
+        <a href="/plnt/signup" class="font-bold">Create account here</a>
     </div>
 </div>

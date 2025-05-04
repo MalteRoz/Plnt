@@ -19,10 +19,10 @@ class Router
         $this->add($uri, $controller, 'GET', $function);
     }
 
-    // public function post($uri, $controller)
-    // {
-    //     $this->add($uri, $controller, 'POST');
-    // }
+    public function post($uri, $controller, $function)
+    {
+        $this->add($uri, $controller, 'POST', $function);
+    }
 
     // public function delete($uri, $controller)
     // {
