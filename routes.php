@@ -14,3 +14,4 @@ $router->get('/products/search', 'app/Controllers/api/ProductController.php', 'h
 $router->get('/product', 'app/Controllers/api/ProductController.php', 'showSingle');
 
 $router->post('/signup', 'app/Controllers/auth/AuthController.php', 'test');
+$router->post('/login', 'app/Controllers/auth/AuthController.php', 'login');

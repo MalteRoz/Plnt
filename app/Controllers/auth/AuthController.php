@@ -1,6 +1,7 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/utils/Validator.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/Controllers/auth/RegisterController.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/Controllers/auth/LoginController.php';
 
 class AuthController
 {
@@ -60,6 +61,24 @@ class AuthController
 
             header("Location: /plnt/signup");
             exit();
+        }
+    }
+
+    public function login()
+    {
+        $email = $_POST["email"];
+        $password = $_POST["pswrd"];
+
+        $login = new LoginController($email, $password);
+
+        try {
+            $login->loginUser();
+
+            // header("location: ../../products?success=loggedIn");
+            require view('Home.view.php');
+        } catch (Exception $e) {
+            // header("location: ../../login?error=LoginFailed");
+            echo "FAILURE";
         }
     }
 }

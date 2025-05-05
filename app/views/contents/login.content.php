@@ -4,9 +4,9 @@ include view('components/goback.php');
 ?>
 
 <div class="flex flex-col w-full gap-4">
-    <form action="" class="flex flex-col w-full gap-4">
-        <label for="username">Username</label>
-        <input type="text" name="username" placeholder="User123" class="flex p-3 rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)]">
+    <form method="POST" action="/plnt/login" class="flex flex-col w-full gap-4">
+        <label for="username">Email</label>
+        <input type="text" name="email" placeholder="user@email.com" class="flex p-3 rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)]">
 
         <label for="pswrd">Password</label>
         <input type="text" name="pswrd" placeholder="MyPassword123!" class="flex p-3 rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)]">
