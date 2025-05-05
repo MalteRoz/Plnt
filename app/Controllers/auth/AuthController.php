@@ -73,12 +73,26 @@ class AuthController
 
         try {
             $login->loginUser();
-
+            echo $_SESSION['userid'];
             // header("location: ../../products?success=loggedIn");
             require view('Home.view.php');
         } catch (Exception $e) {
             // header("location: ../../login?error=LoginFailed");
             echo "FAILURE";
         }
+    }
+
+    public function logout()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $_SESSION = [];
+        session_destroy();
+
+        header("Location: /plnt/login");
+        // require view("Login.view.php");
+        exit();
     }
 }

@@ -28,6 +28,11 @@ class LoginController extends LoginModel
             $_SESSION["userid"] = $user["id"];
             $_SESSION["name"] = $user["name"];
             $_SESSION["email"] = $user["email"];
+            $_SESSION["created_at"] = $user["created_at"];
+
+            // echo "<pre>";
+            // print_r($user);
+            // echo "</pre>";
         } else {
             throw new Exception("Login failed");
         }
