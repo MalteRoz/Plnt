@@ -4,12 +4,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Plnt/app/utils/checkStock.php";
 $content = 'Details';
 $like = true;
 include view('components/goback.php');
+
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 ?>
 
 <section class="mt-8">
-    <?php if ($data['status'] === 'success') :  ?>
-        <!-- <p><?php echo $data['status']; ?> </p> -->
-        <?php foreach ($data['data'] as $product) : ?>
+    <?php if ($response['status'] === 'success') :  ?>
+        <!-- <p><?php echo $response['status']; ?> </p> -->
+        <?php foreach ($response['data'] as $product) : ?>
             <div class="flex flex-col items-center gap-8 w-full">
                 <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="" class="w-[70%] rounded-2xl">
 
@@ -31,29 +37,7 @@ include view('components/goback.php');
 
                     </div>
 
-
                     <p><?php echo $product['description']; ?></p>
-                    <!-- <div class="flex flex-col w-full">
-                        <p class="text-xl font-semibold mb-4">Plant Information</p>
-                        <div class="flex w-full justify-between">
-                            <div class="flex flex-col gap-1">
-                                <p class="text-[14px]">Environment</p>
-                                <p class="font-semibold"><?php echo $product['environment']; ?></p>
-                            </div>
-                            <div class="flex flex-col gap-1">
-                                <p class="text-[14px]">Temperature</p>
-                                <p class="font-semibold"><?php echo $product['temperature']; ?> °C</p>
-                            </div>
-                            <div class="flex flex-col gap-1">
-                                <p class="text-[14px]">Height</p>
-                                <p class="font-semibold"><?php echo $product['height']; ?> cm</p>
-                            </div>
-                            <div class="flex flex-col gap-1">
-                                <p class="text-[14px]">Watering</p>
-                                <p class="font-semibold"><?php echo $product['watering']; ?></p>
-                            </div>
-                        </div>
-                    </div> -->
 
                     <div class="flex flex-col w-full">
 
@@ -87,10 +71,19 @@ include view('components/goback.php');
                             <p class="text-[14px]">Price</p>
                             <p class="text-xl font-semibold">$<?php echo $product['price']; ?></p>
                         </div>
-                        <button class=" text-white font-semibold bg-[#224820] p-3 rounded-full min-w-[70%]">ADD TO CART</button>
+                        <?php if ((isset($_SESSION['userid']))):  ?>
+                            <button class=" text-white font-semibold bg-[#224820] p-3 rounded-full min-w-[70%]">ADD TO CART</button>
+                        <?php else: ?>
+                            <form method="POST" action="/plnt/logout" class="min-w-[70%]">
+                                <button type="submit" name="logout" class="text-white font-semibold bg-[#224820] p-3 rounded-full w-full">
+                                    SIGN IN TO PURCHASE
+                                </button>
+                            </form>
+                        <?php endif; ?>
+
                     </div>
 
-                    <div class="flex justify-between w-full mb-4">
+                    <div class=" flex justify-between w-full mb-4">
                         <div class="flex items-center w-full gap-2">
                             <?php if (checkStock($product['stock']) === 1) : ?>
                                 <div class="w-[15px] h-[15px] bg-[#FFDA47] rounded-full"></div>
