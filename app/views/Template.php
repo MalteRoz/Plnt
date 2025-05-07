@@ -3,6 +3,10 @@
 <?php
 $filnamn = view('components/head.php');
 include $filnamn;
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 
 <body>

@@ -72,15 +72,20 @@ if (session_status() === PHP_SESSION_NONE) {
                             <p class="text-xl font-semibold">$<?php echo $product['price']; ?></p>
                         </div>
                         <?php if ((isset($_SESSION['userid']))):  ?>
-                            <button class=" text-white font-semibold bg-[#224820] p-3 rounded-full min-w-[70%]">ADD TO CART</button>
+                            <form method="POST" action="/plnt/cart" class="min-w-[70%]">
+                                <input type="hidden" name="product_id" value="<?= $product['id']; ?>">
+                                <input type="hidden" name="quantity" value="1">
+                                <button class=" text-white font-semibold bg-[#224820] p-3 rounded-full w-full">
+                                    ADD TO CART
+                                </button>
+                            </form>
                         <?php else: ?>
-                            <form method="POST" action="/plnt/logout" class="min-w-[70%]">
-                                <button type="submit" name="logout" class="text-white font-semibold bg-[#224820] p-3 rounded-full w-full">
+                            <form method="GET" action="/plnt/login" class="min-w-[70%]">
+                                <button type="submit" class="text-white font-semibold bg-[#224820] p-3 rounded-full w-full">
                                     SIGN IN TO PURCHASE
                                 </button>
                             </form>
                         <?php endif; ?>
-
                     </div>
 
                     <div class=" flex justify-between w-full mb-4">

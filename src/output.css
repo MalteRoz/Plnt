@@ -180,11 +180,32 @@
   }
 }
 @layer utilities {
+  .absolute {
+    position: absolute;
+  }
   .fixed {
     position: fixed;
   }
+  .relative {
+    position: relative;
+  }
   .top-0 {
     top: calc(var(--spacing) * 0);
+  }
+  .top-\[-5px\] {
+    top: -5px;
+  }
+  .top-\[-10px\] {
+    top: -10px;
+  }
+  .top-\[-15px\] {
+    top: -15px;
+  }
+  .right-\[-5px\] {
+    right: -5px;
+  }
+  .right-\[-10px\] {
+    right: -10px;
   }
   .bottom-2 {
     bottom: calc(var(--spacing) * 2);
@@ -210,14 +231,26 @@
   .flex {
     display: flex;
   }
+  .hidden {
+    display: none;
+  }
   .table {
     display: table;
   }
   .h-10 {
     height: calc(var(--spacing) * 10);
   }
+  .h-\[5px\] {
+    height: 5px;
+  }
+  .h-\[10px\] {
+    height: 10px;
+  }
   .h-\[15px\] {
     height: 15px;
+  }
+  .h-\[20px\] {
+    height: 20px;
   }
   .h-\[calc\(100svh-190px\)\] {
     height: calc(100svh - 190px);
@@ -231,8 +264,14 @@
   .w-10 {
     width: calc(var(--spacing) * 10);
   }
+  .w-\[0\.75rem\] {
+    width: 0.75rem;
+  }
   .w-\[1\.5rem\] {
     width: 1.5rem;
+  }
+  .w-\[1\.25rem\] {
+    width: 1.25rem;
   }
   .w-\[1rem\] {
     width: 1rem;
@@ -240,8 +279,17 @@
   .w-\[2rem\] {
     width: 2rem;
   }
+  .w-\[5px\] {
+    width: 5px;
+  }
+  .w-\[10px\] {
+    width: 10px;
+  }
   .w-\[15px\] {
     width: 15px;
+  }
+  .w-\[20px\] {
+    width: 20px;
   }
   .w-\[25\%\] {
     width: 25%;
@@ -258,8 +306,20 @@
   .w-full {
     width: 100%;
   }
+  .max-w-\[20\%\] {
+    max-width: 20%;
+  }
+  .max-w-\[30\%\] {
+    max-width: 30%;
+  }
+  .max-w-\[40\%\] {
+    max-width: 40%;
+  }
   .min-w-\[20\%\] {
     min-width: 20%;
+  }
+  .min-w-\[50\%\] {
+    min-width: 50%;
   }
   .min-w-\[70\%\] {
     min-width: 70%;
@@ -306,6 +366,9 @@
   .gap-8 {
     gap: calc(var(--spacing) * 8);
   }
+  .rounded {
+    border-radius: 0.25rem;
+  }
   .rounded-2xl {
     border-radius: var(--radius-2xl);
   }
@@ -320,6 +383,10 @@
   }
   .rounded-xl {
     border-radius: var(--radius-xl);
+  }
+  .rounded-l {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
   }
   .border {
     border-style: var(--tw-border-style);
@@ -376,6 +443,9 @@
   }
   .bg-white {
     background-color: var(--color-white);
+  }
+  .p-1 {
+    padding: calc(var(--spacing) * 1);
   }
   .p-2 {
     padding: calc(var(--spacing) * 2);
@@ -457,6 +527,10 @@
   }
   .text-\[14px\] {
     font-size: 14px;
+  }
+  .font-\[0\.75rem\] {
+    --tw-font-weight: 0.75rem;
+    font-weight: 0.75rem;
   }
   .font-bold {
     --tw-font-weight: var(--font-weight-bold);

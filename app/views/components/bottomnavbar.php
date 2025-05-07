@@ -1,5 +1,9 @@
 <?php
 
+// if (session_status() === PHP_SESSION_NONE) {
+//     session_start();
+// }
+
 $navItems = [
     [
         'name' => 'Home',
@@ -19,14 +23,15 @@ $navItems = [
         'icon' => '<img width="18" height="18" src="https://img.icons8.com/pastel-glyph/64/gender-neutral-user.png" alt="gender-neutral-user"/>'
     ],
     [
-        'name' => 'Bag',
-        'route' => '/plnt/bag',
+        'name' => 'Cart',
+        'route' => '/plnt/cart',
         'icon' => '<img width="18" height="18" src="https://img.icons8.com/fluency-systems-regular/48/shopping-bag--v1.png" alt="shopping-bag--v1"/>'
     ]
 
 ];
 
 $currentPagePath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
 ?>
 
 <div class="flex justify-center w-full">
@@ -34,7 +39,12 @@ $currentPagePath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         <?php foreach ($navItems as $key => $value) : ?>
             <div class="flex flex-col items-center justify-center w-[25%]">
                 <div class="<?= $currentPagePath === $value['route'] ? 'flex flex-col items-center rounded-full border-3 border-[#C4DDA9] p-2' : 'flex flex-col items-center' ?>">
-                    <a href="<?= $value['route']; ?>" class="flex flex-col items-center">
+                    <a href="<?= $value['route']; ?>" class="relative flex flex-col items-center">
+                        <?php if (($value['name'] === 'Cart') && !empty($_SESSION['totalItems'])) : ?>
+                            <span class="absolute top-[-10px] right-[-10px] flex items-center justify-center bg-[#C4DDA9] w-[20px] h-[20px] rounded-full">
+                                <p class="flex text-[#224820] font-bold text-[0.75rem]"><?php echo $_SESSION['totalItems']; ?></p>
+                            </span>
+                        <?php endif; ?>
                         <?= $value['icon']; ?>
                     </a>
                 </div>

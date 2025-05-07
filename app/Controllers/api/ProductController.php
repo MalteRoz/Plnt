@@ -49,7 +49,7 @@ class ProductController extends ProductsModel
     public function getProducts($filter, $limit, $offset, $page)
     {
         $this->products = $this->getProductsFromDb($filter, $limit, $offset);
-        $totalProducts = $this->getTotalProductCount('all'); // <-- NYTT!
+        $totalProducts = $this->getTotalProductCount('all');
 
         if (empty($this->products)) {
             $this->response['status'] = 'error';
