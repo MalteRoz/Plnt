@@ -1,4 +1,4 @@
-<div class="flex items-center w-full justify-between">
+<div class="flex items-center w-full justify-between ">
     <!-- mb-16 mt-8 -->
     <a href="http://localhost/plnt/" class="flex p-3 rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] h-10 w-10 ">
         <img width="48" height="48" src="https://img.icons8.com/fluency-systems-filled/48/long-arrow-left.png" alt="long-arrow-left" />

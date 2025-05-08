@@ -15,7 +15,7 @@ if (session_status() === PHP_SESSION_NONE) {
         include view('components/searchbarMobile.php');
         ?>
 
-        <main class="pt-[76px] pb-[77px] w-full">
+        <main class="pt-[76px] pb-[77px] w-full max-w-[1024px]">
             <div class="p-4 h-full">
                 <?php
                 if (isset($content) && file_exists($content)) {
