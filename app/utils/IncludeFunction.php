@@ -19,7 +19,7 @@ function view($path)
 
 function dataView($path, array $response = [])
 {
-    extract($response); // Gör så att du kan använda $status, $message, $data direkt i vyn
+    extract($response);
 
     $viewPath = $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/views/' . $path;
 

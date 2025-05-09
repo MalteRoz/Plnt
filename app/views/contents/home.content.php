@@ -8,10 +8,10 @@ $limit = 6;
 $offset = ($page - 1) * $limit;
 
 $controller = new ProductController();
-$response = $controller->getProducts(null, $limit, $offset, $page);
+$response = $controller->getPopularProducts(null, $limit, $offset, $page);
 $products = $response['data'];
 
-$currentPagePath = 'All';
+$currentPagePath = 'Popular';
 ?>
 
 <div class="w-full">
@@ -29,17 +29,17 @@ $currentPagePath = 'All';
 
         <?php include view('components/saleContainer.php'); ?>
 
-        <div class="flex md:flex-row gap-8">
+        <div class="flex flex-col md:flex-row gap-8">
 
             <div class="flex flex-col md:w-[20%]">
                 <?php include view('components/categories.php'); ?>
                 <?php include view('components/filters.php'); ?>
             </div>
 
-            <section class="flex flex-col md:flex-row md:flex-wrap md:gap-8 md:w-[80%] md:justify-end">
+            <section class="flex flex-col gap-8 md:flex-row md:flex-wrap md:w-[80%] md:justify-end">
                 <?php if ($response['status'] === 'success') : ?>
                     <?php foreach ($products as $product) : ?>
-                        <div class="flex flex-col w-[30%] gap-2">
+                        <div class="flex flex-col md:w-[30%] gap-2">
                             <a href="/plnt/product?id=<?php echo $product['id']; ?>" class="">
                                 <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="" class="rounded-2xl">
                                 <div class="flex flex-col mt-2">
@@ -49,19 +49,19 @@ $currentPagePath = 'All';
 
                                 <div class="w-full">
                                     <?php if (isset($_SESSION['userid'])) : ?>
-                                        <form method="POST" action="/plnt/cart" class="flex justify-between w-full">
+                                        <form method="POST" action="/plnt/cart" class="flex justify-between">
                                             <input type="hidden" name="product_id" value="<?= $product['id']; ?>">
                                             <input type="hidden" name="quantity" value="1">
-                                            <button class="font-semibold rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] py-2.5 w-full text-center mr-4">
+                                            <button class="font-semibold rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] py-2.5 w-full text-center ">
                                                 ADD TO CART
                                             </button>
-                                            <a href="/" class="flex p-2.5 rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] h-11 w-11">
+                                            <!-- <a href="/" class="flex p-2.5 rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] h-11 w-11">
                                                 <img width="48" height="48" src="https://img.icons8.com/fluency-systems-regular/48/like--v1.png" alt="like">
-                                            </a>
+                                            </a> -->
                                         </form>
                                     <?php else : ?>
-                                        <form method="GET" action="/plnt/login" class="">
-                                            <button type="submit" class="font-semibold rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] py-2.5 w-[80%] text-center mr-4">
+                                        <form method="GET" action="/plnt/login" class="flex justify-between">
+                                            <button type="submit" class="font-semibold rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] py-2.5 px-2 w-full text-center ">
                                                 SIGN IN TO PURCHASE
                                             </button>
                                             <a href="/" class="flex p-2.5 rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] h-11 w-11">

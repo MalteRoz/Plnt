@@ -17,7 +17,7 @@ if (session_status() === PHP_SESSION_NONE) {
         ?>
 
         <main class="pt-[76px] pb-[77px] w-full max-w-[1024px]">
-            <div class="p-4 h-full md:p-0">
+            <div class="p-4  md:p-0">
                 <?php
                 if (isset($content) && file_exists($content)) {
                     include $content;

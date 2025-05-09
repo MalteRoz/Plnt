@@ -57,10 +57,10 @@ class AuthController
                 if ($response === true) {
                     Flash::set('success', 'Account created');
                 } else {
-                    Flash::set('error', 'Something went wrong while creating your account 1');
+                    Flash::set('error', 'Something went wrong while creating your account');
                 }
             } catch (Exception $e) {
-                Flash::set('error', 'Something went wrong while creating your account 2');
+                Flash::set('error', 'Something went wrong while creating your account');
             }
         } else {
             $errors = [];
@@ -73,13 +73,7 @@ class AuthController
 
             Flash::set('error', 'We were unable to validate your information, please try again.');
 
-            // $_SESSION['response'] = [
-            //     'status' => 'error',
-            //     'message' => 'Something went wrong while creating your account',
-            //     'validation_errors' => $errors
-            // ];
             $_SESSION['validation_errors'] = $errors;
-
             $_SESSION['old_input'] = $_POST;
         }
 
@@ -94,7 +88,6 @@ class AuthController
         $login = new LoginController($email, $password);
 
         try {
-            $login->loginUser();
             $login->loginUser();
             Flash::set('success', 'You are logged in');
             header("Location: /plnt/account");

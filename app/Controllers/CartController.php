@@ -19,7 +19,8 @@ class CartController extends CartModel
     public function showCart()
     {
         $this->session;
-        $user_id = $_SESSION["userid"];
+        $user_id = $_SESSION["userid"] ?? null;
+
 
         $this->products = $this->cartModel->getCartItems($user_id);
         $total = $this->cartModel->getCartTotal($user_id);
@@ -29,12 +30,12 @@ class CartController extends CartModel
             $this->response['status'] = 'error';
             $this->response['message'] = 'No products found';
             $this->response['data'] = [];
-            return;
         } else {
             $this->response['status'] = 'success';
             $this->response['data'] = $this->products;
             $this->response['total'] = $total;
         }
+
 
         dataView('Cart.view.php', $this->response);
     }
@@ -66,12 +67,6 @@ class CartController extends CartModel
         $productId = $_POST['product_id'];
         $quantity = $_POST['quantity'];
         $user_id = $_SESSION["userid"];
-
-        echo $quantity;
-
-        // if ($action === 'decrease' && $quantity <= 1) {
-        //     $action = 'delete';
-        // }
 
         $response = $this->updateCartItem($productId, $user_id, $action);
 

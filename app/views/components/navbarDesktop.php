@@ -31,7 +31,7 @@ $currentPagePath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 ?>
 
-<div class="flex justify-center p-4 w-full">
+<div class="hidden md:flex justify-center p-4 w-full">
     <nav class="flex justify-between items-center w-full max-w-[1024px] p-4 rounded-2xl border-1 border-zinc-300 bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)] fixed top-4 z-50">
         <div class="flex gap-8 ">
             <a href="/plnt/">

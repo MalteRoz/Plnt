@@ -4,7 +4,7 @@
     include view('components/saleContainer.php');
     ?>
 
-    <div class="flex md:flex-row gap-8">
+    <div class="flex flex-col md:flex-row gap-8">
 
         <div class="flex flex-col md:w-[20%]">
             <?php
@@ -13,23 +13,23 @@
             ?>
         </div>
 
-        <section class="flex flex-col md:flex-row md:flex-wrap md:gap-8 md:w-[80%] md:justify-end">
+        <section class="flex flex-col md:flex-row md:flex-wrap gap-8 md:w-[80%] md:justify-end">
             <?php if ($response['status'] === 'success') : ?>
                 <?php foreach ($response['data'] as $product) : ?>
-                    <div class="flex flex-col w-[30%] gap-2">
-                        <a href="/plnt/product?id=<?php echo $product['id']; ?>" class="">
+                    <div class="flex flex-col md:w-[30%]">
+                        <a href="/plnt/product?id=<?php echo $product['id']; ?>" class="flex flex-col gap-2">
                             <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="" class="rounded-2xl">
                             <div class="flex flex-col mt-2">
                                 <p class="font-semibold text-xl"><?php echo htmlspecialchars($product['name']); ?></p>
                                 <p class="font-semibold">$<?php echo htmlspecialchars($product['price']); ?></p>
                             </div>
 
-                            <div class="w-full">
+                            <div class="w-full mt-2">
                                 <?php if (isset($_SESSION['userid'])) : ?>
-                                    <form method="POST" action="/plnt/cart" class="flex justify-between w-full">
+                                    <form method="POST" action="/plnt/cart" class="flex justify-between ">
                                         <input type="hidden" name="product_id" value="<?= $product['id']; ?>">
                                         <input type="hidden" name="quantity" value="1">
-                                        <button class="font-semibold rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] py-2.5 w-full text-center mr-4">
+                                        <button class="font-semibold rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] py-2.5 w-full text-center">
                                             ADD TO CART
                                         </button>
                                         <a href="/" class="flex p-2.5 rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] h-11 w-11">
@@ -37,8 +37,8 @@
                                         </a>
                                     </form>
                                 <?php else : ?>
-                                    <form method="GET" action="/plnt/login" class="">
-                                        <button type="submit" class="font-semibold rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] py-2.5 w-[80%] text-center mr-4">
+                                    <form method="GET" action="/plnt/login" class="flex justify-between">
+                                        <button type="submit" class="font-semibold rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] py-2.5 w-full text-center mr-4">
                                             SIGN IN TO PURCHASE
                                         </button>
                                         <a href="/" class="flex p-2.5 rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] h-11 w-11">

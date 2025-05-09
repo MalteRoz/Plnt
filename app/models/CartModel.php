@@ -133,7 +133,6 @@ class CartModel extends Dbh
             $sql = "";
 
             if ($action === 'decrease') {
-                // Hämta nuvarande quantity först
                 $checkSql = "SELECT quantity FROM cart_items WHERE cart_id = :cart_id AND product_id = :product_id;";
                 $checkStmt = $this->connection()->prepare($checkSql);
                 $checkStmt->bindParam(':cart_id', $cart_id, PDO::PARAM_INT);
