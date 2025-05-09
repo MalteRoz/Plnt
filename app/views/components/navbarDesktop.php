@@ -1,8 +1,5 @@
 <?php
 
-// if (session_status() === PHP_SESSION_NONE) {
-//     session_start();
-// }
 
 $navItems = [
     [
@@ -34,21 +31,36 @@ $currentPagePath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 ?>
 
-<div class="block md:hidden flex justify-center w-full ">
-    <nav class="fixed bottom-2 z-50 w-[92.5%] flex justify-between gap-2 py-[1rem] px-0 border border-zinc-300 rounded-2xl bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] min-h-[74px]">
-        <?php foreach ($navItems as $key => $value) : ?>
-            <div class="flex flex-col items-center justify-center w-[25%]">
+<div class="flex justify-center p-4 w-full">
+    <nav class="flex justify-between items-center w-full max-w-[1024px] p-4 rounded-2xl border-1 border-zinc-300 bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)] fixed top-4 z-50">
+        <div class="flex gap-8 ">
+            <a href="/plnt/">
+                <img src="/Plnt/public/LOGO.svg" alt="" class="flex w-[2rem]">
+            </a>
+            <form action="/plnt/products/search" method="GET" class="flex items-center  p-2 rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_5px_rgba(0,0,0,0.1)]">
+                <input type="text" name="query" placeholder="type something" class="">
+                <button type="submit">
+                    <i class='bx bx-search bx-sm text-zinc-400'></i>
+                </button>
+            </form>
+        </div>
+        <div class="flex items-center justify-center gap-8">
+            <?php foreach ($navItems as $key => $value) : ?>
                 <div class="<?= $currentPagePath === $value['route'] ? 'flex flex-col items-center rounded-full border-3 border-[#C4DDA9] p-2' : 'flex flex-col items-center' ?>">
                     <a href="<?= $value['route']; ?>" class="relative flex flex-col items-center">
-                        <?php if (($value['name'] === 'Cart') && !empty($_SESSION['totalItems'])) : ?>
-                            <span class="absolute top-[-10px] right-[-10px] flex items-center justify-center bg-[#C4DDA9] w-[20px] h-[20px] rounded-full">
-                                <p class="flex text-[#224820] font-bold text-[0.75rem]"><?php echo $_SESSION['totalItems']; ?></p>
-                            </span>
+                        <?php if ($value['name'] === 'Home' || $value['name'] === 'Products') : ?>
+                            <?= $value['name']; ?>
+                        <?php elseif ($value['name'] === 'Account' || $value['name'] === 'Cart') : ?>
+                            <?= $value['icon']; ?>
+                            <?php if (($value['name'] === 'Cart') && !empty($_SESSION['totalItems'])) : ?>
+                                <span class="absolute top-[-10px] right-[-10px] flex items-center justify-center bg-[#C4DDA9] w-[20px] h-[20px] rounded-full">
+                                    <p class="flex text-[#224820] font-bold text-[0.75rem]"><?php echo $_SESSION['totalItems']; ?></p>
+                                </span>
+                            <?php endif; ?>
                         <?php endif; ?>
-                        <?= $value['icon']; ?>
                     </a>
                 </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        </div>
     </nav>
 </div>
