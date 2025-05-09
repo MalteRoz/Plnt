@@ -2,6 +2,8 @@
 require $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/utils/Validator.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/Controllers/auth/RegisterController.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/Controllers/auth/LoginController.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/utils/Flash.php';
+
 
 class AuthController
 {
@@ -15,9 +17,8 @@ class AuthController
         require view('Signup.view.php');
     }
 
-    public function test()
+    public function signup()
     {
-
         $name = $_POST["name"];
         $email = $_POST["email"];
         $password = $_POST["pswrd"];
@@ -26,8 +27,19 @@ class AuthController
         $city = $_POST["city"];
         $postal = $_POST["postcode"];
 
+        $userData = [
+            'name' => $name,
+            'email' => $email,
+            'pswrd' => $password,
+            'pswrd-rep' => $passwordRepeat,
+            'adress' => $street,
+            'postcode' => $postal,
+            'city' => $city
+        ];
+
+
         $v = new Validator($_POST);
-        $register = new RegisterController($name, $email, $password, $passwordRepeat, $street, $postal, $city);
+        $register = new RegisterController($userData);
 
 
         $v->field('name')->required()->alpha([' '])->min_len(2)->max_len(50);
@@ -39,11 +51,18 @@ class AuthController
         $v->field('postcode')->required()->numeric()->min_len(3)->max_len(10);
 
         if ($v->is_valid()) {
-            $register->useRegisterUser();
-            echo "<br>";
-            echo "success";
-        } else if ((!$v->is_valid())) {
-            session_start();
+            try {
+                $response = $register->useRegisterUser();
+
+                if ($response === true) {
+                    Flash::set('success', 'Account created');
+                } else {
+                    Flash::set('error', 'Something went wrong while creating your account 1');
+                }
+            } catch (Exception $e) {
+                Flash::set('error', 'Something went wrong while creating your account 2');
+            }
+        } else {
             $errors = [];
             foreach ($_POST as $key => $value) {
                 $msg = $v->get_error_message($key);
@@ -51,35 +70,41 @@ class AuthController
                     $errors[$key] = $msg;
                 }
             }
-            echo "<pre>";
-            print_r($errors);
-            echo "</pre>";
 
+            Flash::set('error', 'We were unable to validate your information, please try again.');
 
+            // $_SESSION['response'] = [
+            //     'status' => 'error',
+            //     'message' => 'Something went wrong while creating your account',
+            //     'validation_errors' => $errors
+            // ];
             $_SESSION['validation_errors'] = $errors;
-            $_SESSION['old_input'] = $_POST;
 
-            header("Location: /plnt/signup");
-            exit();
+            $_SESSION['old_input'] = $_POST;
         }
+
+        header("Location: /plnt/signup");
+        exit();
     }
 
     public function login()
     {
         $email = $_POST["email"];
         $password = $_POST["pswrd"];
-
         $login = new LoginController($email, $password);
 
         try {
             $login->loginUser();
-            echo $_SESSION['userid'];
-            // header("location: ../../products?success=loggedIn");
-            require view('Home.view.php');
+            $login->loginUser();
+            Flash::set('success', 'You are logged in');
+            header("Location: /plnt/account");
         } catch (Exception $e) {
-            // header("location: ../../login?error=LoginFailed");
-            echo "FAILURE";
+            Flash::set('error', $e->getMessage());
+            header("Location: /plnt/login");
         }
+
+
+        exit();
     }
 
     public function logout()

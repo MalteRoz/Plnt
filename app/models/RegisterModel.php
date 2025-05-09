@@ -11,7 +11,6 @@ class RegisterModel extends Dbh
 
         if (!$stmt->execute(array($name, $email, $hashedPwd, $street, $postal, $city))) {
             $stmt = null;
-            header("location: ../../?error=stmtfailed");
             exit();
         }
         $stmt = null;
@@ -21,22 +20,27 @@ class RegisterModel extends Dbh
     {
         $sql = "SELECT * FROM customers WHERE email = ? LIMIT 1;";
         $stmt = $this->connection()->prepare($sql);
+
         if (!$stmt->execute(array($email))) {
             $stmt = null;
-            header("location: ../../?error=stmtfailed");
             exit();
         }
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function checkIfUserExists($email)
+    protected function checkIfUserExists($email)
     {
         $user = $this->getUser($email);
         return $user !== false;
     }
 
-    public function registerUser($name, $email, $password, $street, $postal, $city)
+    protected function registerUser($name, $email, $password, $street, $postal, $city)
     {
-        return $this->createUser($name, $email, $password, $street, $postal, $city);
+        if ($this->checkIfUserExists($email)) {
+            return false;
+        }
+
+        $this->createUser($name, $email, $password, $street, $postal, $city);
+        return true;
     }
 }

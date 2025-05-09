@@ -1,8 +1,12 @@
 <?php
 $content = 'Account';
 include view('components/goback.php');
+require $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/utils/Flash.php';
+
 
 if (session_status() === PHP_SESSION_NONE) session_start();
+
+
 ?>
 
 <?php if (isset($_SESSION['userid'])) : ?>
@@ -21,6 +25,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             <a class="text-[#8B3537] text-[0.75rem] font-semibold" href="">Delete Account</a>
         </div>
     </div>
+
 <?php else : ?>
     <p>Utloggad</p>
     <a href="/plnt/login">Log in</a>

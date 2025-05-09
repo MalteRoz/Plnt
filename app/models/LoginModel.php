@@ -5,21 +5,15 @@ class LoginModel extends Dbh
     {
         $sql = "SELECT * FROM customers WHERE email = ?;";
         $stmt = $this->connection()->prepare($sql);
-        if (!$stmt->execute(array($email))) {
-            $stmt = null;
-            header("location: ../../?error=stmtfailed");
-            exit();
+
+        if (!$stmt->execute([$email])) {
+            throw new Exception("Database statement failed");
         }
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (!$user) {
-            header("location: ../../?error=LoginFailed");
-            exit();
+        if (!$user || !password_verify($password, $user["password"])) {
+            throw new Exception("Login failed");
         }
-        if (!password_verify($password, $user["password"])) {
-            header("location: ../../?error=LoginFailed");
-            exit();
-        };
 
         return $user;
     }

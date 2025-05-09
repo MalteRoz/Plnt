@@ -16,29 +16,24 @@ class LoginController extends LoginModel
 
     public function loginUser()
     {
-        if ($this->emptyInput() == false) {
-            header("location: ../index.php?error=emptyinput");
-            exit();
+        if (!$this->isInputValid()) {
+            throw new Exception("Empty fields");
         }
 
         $user = $this->getUser($this->email, $this->password);
 
         if ($user) {
-            session_start();
+            if (session_status() === PHP_SESSION_NONE) session_start();
             $_SESSION["userid"] = $user["id"];
             $_SESSION["name"] = $user["name"];
             $_SESSION["email"] = $user["email"];
             $_SESSION["created_at"] = $user["created_at"];
-
-            // echo "<pre>";
-            // print_r($user);
-            // echo "</pre>";
         } else {
             throw new Exception("Login failed");
         }
     }
 
-    private function emptyInput()
+    private function isInputValid()
     {
         return !empty($this->email) && !empty($this->password);
     }

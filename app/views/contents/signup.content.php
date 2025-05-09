@@ -2,7 +2,7 @@
 $content = 'Create Account';
 include view('components/goback.php');
 
-session_start();
+if (session_status() === PHP_SESSION_NONE) session_start();
 
 function old($field)
 {
@@ -13,6 +13,8 @@ function error($field)
 {
     return $_SESSION['validation_errors'][$field] ?? '';
 }
+
+$flash = Flash::get();
 ?>
 
 <div class="flex flex-col w-full gap-4">
@@ -53,6 +55,12 @@ function error($field)
     <div class="flex justify-center gap-2">
         <p>Already have an account?</p>
         <a href="/plnt/login" class="font-bold">Login Here</a>
+    </div>
+
+    <div class="flex items-center justify-center">
+        <?php if ($flash) :  ?>
+            <p class="font-semibold text-xl"><?php echo htmlspecialchars($flash['message']); ?></p>
+        <?php endif; ?>
     </div>
 </div>
 
