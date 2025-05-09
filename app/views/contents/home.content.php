@@ -19,8 +19,8 @@ $currentPagePath = 'All';
     <!-- HERO SECTION  -->
     <div class="h-[calc(100svh-190px)] flex flex-col justify-center gap-8 mb-4 md:h-[calc(100svh-110px)] ">
         <p class="font-bold text-5xl text-[#224820]">Plant a tree for life</p>
-        <p class="text-2xl text-[#224820]">We focus on healthy, vibrant plants for your home. Quality curated, ready to bring life and freshness. We help create your green oasis.</p>
-        <a href="#" class="flex justify-center text-[#224820] w-full rounded-[2rem] font-bold border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] p-3">Find your next plant</a>
+        <p class="text-2xl text-[#224820] md:w-[80%]">We focus on healthy, vibrant plants for your home. Quality curated, ready to bring life and freshness. We help create your green oasis.</p>
+        <a href="#" class="flex justify-center text-[#224820] w-full rounded-2xl font-bold border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] p-3 md:w-[50%]">Find your next plant</a>
     </div>
 
     <!-- CONTENT SECTION  -->

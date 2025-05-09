@@ -13,10 +13,11 @@ if (session_status() === PHP_SESSION_NONE) {
     <div class="flex flex-col items-center">
         <?php
         include view('components/searchbarMobile.php');
+        include view('components/navbarDesktop.php');
         ?>
 
         <main class="pt-[76px] pb-[77px] w-full max-w-[1024px]">
-            <div class="p-4 h-full">
+            <div class="p-4 h-full md:p-0">
                 <?php
                 if (isset($content) && file_exists($content)) {
                     include $content;

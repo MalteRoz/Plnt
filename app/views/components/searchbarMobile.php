@@ -1,4 +1,4 @@
-<div class="fixed top-0 w-full z-100 flex justify-between items-center p-4 ">
+<div class="fixed top-0 w-full z-100 flex justify-between items-center p-4 block md:hidden">
     <a href="/plnt/">
         <img src="/Plnt/public/LOGO.svg" alt="" class="flex w-[2rem]">
     </a>
