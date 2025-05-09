@@ -2,12 +2,7 @@
 $content = 'Account';
 include view('components/goback.php');
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-// $name =  $_SESSION["name"];
-// $email =  $_SESSION["email"];
-// $created_at =  $_SESSION["created_at"];
+if (session_status() === PHP_SESSION_NONE) session_start();
 ?>
 
 <?php if (isset($_SESSION['userid'])) : ?>
