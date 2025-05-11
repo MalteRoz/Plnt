@@ -29,7 +29,7 @@
                                     <form method="POST" action="/plnt/cart" class="flex justify-between ">
                                         <input type="hidden" name="product_id" value="<?= $product['id']; ?>">
                                         <input type="hidden" name="quantity" value="1">
-                                        <button class="font-semibold rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] py-2.5 w-full text-center">
+                                        <button class="font-semibold rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] py-2.5 w-full text-center cursor-pointer">
                                             ADD TO CART
                                         </button>
                                         <a href="/" class="flex p-2.5 rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] h-11 w-11">
@@ -41,7 +41,7 @@
                                         <button type="submit" class="font-semibold rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] py-2.5 w-full text-center mr-4">
                                             SIGN IN TO PURCHASE
                                         </button>
-                                        <a href="/" class="flex p-2.5 rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] h-11 w-11">
+                                        <a href="/" class="flex p-2.5 rounded-full border-1 border-zinc-300 bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] h-11 w-11 cursor-pointer">
                                             <img width="48" height="48" src="https://img.icons8.com/fluency-systems-regular/48/like--v1.png" alt="like">
                                         </a>
                                     </form>
