@@ -1,8 +1,9 @@
 <?php
 class LoginModel extends Dbh
 {
-    protected function getUser($email, $password)
+    public function getUser($email, $password)
     {
+
         $sql = "SELECT * FROM customers WHERE email = ?;";
         $stmt = $this->connection()->prepare($sql);
 

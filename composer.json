@@ -10,5 +10,8 @@
             "name": "Malte Rozenbeek",
             "email": "malte.rozenbeek@gmail.com"
         }
-    ]
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
 }

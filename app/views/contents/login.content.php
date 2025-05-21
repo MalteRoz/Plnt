@@ -6,6 +6,13 @@ include view('components/goback.php');
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 $flash = Flash::get();
+
+// echo '<pre>';
+// // print_r($_ENV);
+// // print_r($_SERVER);
+// print_r(getenv('DB_USERNAME'));
+// echo '</pre>';
+// exit;
 ?>
 
 <div class="flex w-full justify-center items-center mt-16">

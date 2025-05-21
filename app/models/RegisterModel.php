@@ -28,13 +28,13 @@ class RegisterModel extends Dbh
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    protected function checkIfUserExists($email)
+    public function checkIfUserExists($email)
     {
         $user = $this->getUser($email);
         return $user !== false;
     }
 
-    protected function registerUser($name, $email, $password, $street, $postal, $city)
+    public function registerUser($name, $email, $password, $street, $postal, $city)
     {
         if ($this->checkIfUserExists($email)) {
             return false;

@@ -3,15 +3,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/database/dbh.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/models/LoginModel.php';
 
 
-class LoginController extends LoginModel
+class LoginController
 {
     private $email;
     private $password;
+    private $loginModel;
+
 
     public function __construct($email, $password)
     {
         $this->email = $email;
         $this->password = $password;
+        $this->loginModel = new LoginModel();
     }
 
     public function loginUser()
@@ -20,7 +23,7 @@ class LoginController extends LoginModel
             throw new Exception("Empty fields");
         }
 
-        $user = $this->getUser($this->email, $this->password);
+        $user = $this->loginModel->getUser($this->email, $this->password);
 
         if ($user) {
             if (session_status() === PHP_SESSION_NONE) session_start();
