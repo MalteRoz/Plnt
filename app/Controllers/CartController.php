@@ -3,7 +3,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/database/dbh.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/models/CartModel.php';
 
-class CartController extends CartModel
+class CartController
 {
     private $cartModel;
     private $session;
@@ -20,7 +20,6 @@ class CartController extends CartModel
     {
         $this->session;
         $user_id = $_SESSION["userid"] ?? null;
-
 
         $this->products = $this->cartModel->getCartItems($user_id);
         $total = $this->cartModel->getCartTotal($user_id);
@@ -68,7 +67,7 @@ class CartController extends CartModel
         $quantity = $_POST['quantity'];
         $user_id = $_SESSION["userid"];
 
-        $response = $this->updateCartItem($productId, $user_id, $action);
+        $response = $this->cartModel->updateCartItem($productId, $user_id, $action);
 
         if ($response) {
             header("Location: /plnt/cart");

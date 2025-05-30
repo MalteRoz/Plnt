@@ -2,7 +2,7 @@
 class CartModel extends Dbh
 {
 
-    protected function getCartItems($user_id)
+    public function getCartItems($user_id)
     {
         try {
             $cart_id = $this->getOrCreateCart($user_id);
@@ -28,7 +28,7 @@ class CartModel extends Dbh
         }
     }
 
-    protected function getCartTotal($user_id)
+    public function getCartTotal($user_id)
     {
         $cart_id = $this->getOrCreateCart($user_id);
         $sql = "SELECT SUM(ci.quantity * p.price) AS total_cost
@@ -42,7 +42,7 @@ class CartModel extends Dbh
         return $stmt->fetchColumn();
     }
 
-    protected function getTotalCartItems($user_id)
+    public function getTotalCartItems($user_id)
     {
         $cart_id = $this->getOrCreateCart($user_id);
         $sql = "SELECT SUM(quantity) FROM cart_items WHERE cart_id = :cart_id;";
@@ -52,7 +52,7 @@ class CartModel extends Dbh
         return $stmt->fetchColumn();
     }
 
-    protected function addItem($user_id, $productId, $quantity)
+    public  function addItem($user_id, $productId, $quantity)
     {
         try {
             $cart_id = $this->getOrCreateCart($user_id);
@@ -71,7 +71,7 @@ class CartModel extends Dbh
         }
     }
 
-    protected function getOrCreateCart($user_id)
+    public function getOrCreateCart($user_id)
     {
         $sql = "SELECT id FROM shopping_carts WHERE customer_id = :user_id";
         $stmt = $this->connection()->prepare($sql);
@@ -91,7 +91,7 @@ class CartModel extends Dbh
         return $cartId;
     }
 
-    protected function addOrUpdateCartItem($cart_id, $productId, $quantity)
+    public function addOrUpdateCartItem($cart_id, $productId, $quantity)
     {
         $sql = "SELECT quantity 
             FROM cart_items 
@@ -126,7 +126,7 @@ class CartModel extends Dbh
         }
     }
 
-    protected function updateCartItem($productId, $user_id, $action)
+    public function updateCartItem($productId, $user_id, $action)
     {
         try {
             $cart_id = $this->getOrCreateCart($user_id);
