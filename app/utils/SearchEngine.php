@@ -14,18 +14,23 @@ $dotenv->load();
 
 
 
-
 class SearchEngine
 {
-    private $accessKey = 'CCAEpA_rsL6pFqvx6V8n0A';
-    private $secretKey = 'mSS_JDYiDmpnxgG4t1eBWA7bbxSuLw';
-    private $url = "https://betasearch.systementor.se";
-    private $index_name = "products-24";
 
+    private $accessKey;
+    private $secretKey;
+    private $url;
+    private $index_name;
     private  $client;
 
     function __construct()
     {
+        $this->accessKey = $_ENV['ACCESSKEY'];
+        $this->secretKey = $_ENV['SECRETKEY'];
+        $this->url = $_ENV['SEARCH_URL'];
+        $this->index_name = $_ENV['SEARCH_INDEX_NAME'];
+
+
         $this->client = new Client([
             'base_uri' => $this->url,
             'verify' => false,
