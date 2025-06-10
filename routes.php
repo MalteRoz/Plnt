@@ -29,6 +29,8 @@ $router->post('/cart/update', 'app/Controllers/CartController.php', 'updateCart'
 
 // Checkout / Stripe 
 $router->get('/checkout', 'app/Controllers/CheckoutController.php', 'showStripe');
+$router->get('/checkout/success', 'app/Controllers/CheckoutController.php', 'showSuccess');
+
 
 
 // $router->get('/', 'app/Controllers/HomeController.php', 'show');
