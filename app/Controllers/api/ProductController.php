@@ -1,6 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/database/dbh.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/models/ProductsModel.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/utils/SearchEngine.php';
 
 class ProductController extends ProductsModel
 {
@@ -130,7 +131,6 @@ class ProductController extends ProductsModel
     {
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $limit = 6;
-        $offset = ($page - 1) * $limit;
 
         $filter = '';
         if (isset($params['filter'])) {
@@ -139,22 +139,78 @@ class ProductController extends ProductsModel
 
         if (isset($params['query'])) {
             $search = $params['query'];
-            $this->products = $this->getProductsBySearchFromDb($search, $filter, $limit, $offset);
-            $totalProducts = $this->getTotalProductCount('category', $search);
-            if (empty($this->products)) {
+
+            if (empty($filter)) {
+                $sortField = '_score';
+                $sortOrder = 'desc';
+            } else {
+                switch ($filter) {
+                    case 'Lowest Price':
+                        $sortField = 'price';
+                        $sortOrder = 'asc';
+                        break;
+                    case 'Highest Price':
+                        $sortField = 'price';
+                        $sortOrder = 'desc';
+                        break;
+                    case 'Name desc':
+                        $sortField = 'name_keyword';
+                        $sortOrder = 'asc';
+                        break;
+                    case 'Name asc':
+                        $sortField = 'name_keyword';
+                        $sortOrder = 'desc';
+                        break;
+                    default:
+                        $sortField = '_score';
+                        $sortOrder = 'desc';
+                        break;
+                }
+            }
+
+
+            $searchEngine = new SearchEngine();
+            $searchResults = $searchEngine->search(
+                $search,
+                $sortField,
+                $sortOrder,
+                $page,
+                $limit
+            );
+
+            if ($searchResults === null || empty($searchResults['data'])) {
                 $this->response['status'] = 'error';
                 $this->response['message'] = 'No products matching search';
                 dataView('Products.view.php', $this->response);
                 return;
             }
+
+            $formattedProducts = array_map(function ($hit) {
+                return [
+                    'id' => $hit['_source']['webid'],
+                    'name' => $hit['_source']['name'],
+                    'description' => $hit['_source']['desription'],
+                    'price' => $hit['_source']['price'],
+                    'image_url' => $hit['_source']['image_url'],
+                    'stock' => $hit['_source']['stock'],
+                    'environment' => $hit['_source']['enviroment'],
+                    'temperature' => $hit['_source']['temperature'],
+                    'height' => $hit['_source']['height'],
+                    'watering' => $hit['_source']['watetring'],
+                    'category_id' => $hit['_source']['category_id'],
+                    'likes' => $hit['_source']['likes']
+                ];
+            }, $searchResults['data']);
+
             $this->response['status'] = 'success';
-            $this->response['data'] = $this->products;
+            $this->response['data'] = $formattedProducts;
             $this->response['pagination'] = [
                 'currentPage' => $page,
-                'totalPages' => ceil($totalProducts / $limit),
-                'total' => $totalProducts,
+                'totalPages' => $searchResults['num_pages'],
+                'total' => count($searchResults['data']),
                 'perPage' => $limit
             ];
+
             dataView('Products.view.php', $this->response);
         } else {
             dataView('Products.view.php', []);

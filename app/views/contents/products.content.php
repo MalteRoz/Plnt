@@ -2,6 +2,8 @@
 
     <?php
     include view('components/saleContainer.php');
+
+
     ?>
 
     <div class="flex flex-col md:flex-row gap-8">
@@ -51,7 +53,7 @@
                     </div>
                 <?php endforeach; ?>
             <?php else : ?>
-                <p class="text-center w-full font-semibold mt-4"><?php echo htmlspecialchars($data['message']); ?></p>
+                <p class="text-center w-full font-semibold mt-4"><?php echo htmlspecialchars($response['message']); ?></p>
             <?php endif; ?>
         </section>
 

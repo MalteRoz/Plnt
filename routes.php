@@ -27,6 +27,9 @@ $router->get('/cart', 'app/Controllers/CartController.php', 'showCart');
 $router->post('/cart', 'app/Controllers/CartController.php', 'addToCart');
 $router->post('/cart/update', 'app/Controllers/CartController.php', 'updateCart');
 
+// Checkout / Stripe 
+$router->get('/checkout', 'app/Controllers/CheckoutController.php', 'showStripe');
+
 
 // $router->get('/', 'app/Controllers/HomeController.php', 'show');
 // $router->get('/login', 'app/Controllers/auth/AuthController.php', 'showLogin');
