@@ -63,6 +63,9 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                 <?php endforeach; ?>
                 <p>Total: $<?php echo $response['total']; ?> </p>
+                <div class="flex w-full justify-center">
+                    <a href="/plnt/checkout" class="font-bold text-[#224820]  border-1 border-zinc-300 rounded-2xl bg-white shadow-[0_0_10px_rgba(0,0,0,0.1)] p-4 w-full text-center md:w-[50%]">Go to checkout</a>
+                </div>
             <?php elseif ($response['status'] === 'error') : ?>
                 <div class="flex flex-col justify-center items-center gap-4 w-full">
                     <p>You have a empty cart, lets fix that!</p>
