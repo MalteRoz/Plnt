@@ -176,4 +176,18 @@ class CartModel extends Dbh
             ];
         }
     }
+
+    public function clearCartFromDb($user_id)
+    {
+        try {
+            $cart_id = $this->getOrCreateCart($user_id);
+            $sql = "DELETE FROM cart_items WHERE cart_id = :cart_id";
+            $stmt = $this->connection()->prepare($sql);
+            $stmt->bindParam(':cart_id', $cart_id, PDO::PARAM_INT);
+            $stmt->execute();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }

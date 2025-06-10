@@ -3,6 +3,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/database/dbh.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Plnt/app/models/CartModel.php';
 
+
 class CheckoutController
 {
     public function showStripe()
@@ -64,6 +65,8 @@ class CheckoutController
         if (session_status() === PHP_SESSION_NONE) session_start();
 
         if (isset($_SESSION['userid'])) {
+            $cartModel = new CartModel();
+            $cartModel->clearCartFromDb($_SESSION['userid']);
             dataView("SuccessfullCheckout.view.php", []);
         } else {
             dataView("404.view.php", []);

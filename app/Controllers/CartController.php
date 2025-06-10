@@ -77,4 +77,9 @@ class CartController
             exit;
         }
     }
+
+    public function clearCart($user_id)
+    {
+        $response = $this->cartModel->clearCartFromDb($user_id);
+    }
 }
